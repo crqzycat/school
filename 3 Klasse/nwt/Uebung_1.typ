@@ -1,4 +1,7 @@
 #let mainPage = "https://www.htlrennweg.at/"
+#let author = "Nils Piskorz"
+#let klasse = "3BI"
+#let schuljahr = "2026/2027"
 
 // Gemeinsame Gestaltung
 #let navy = rgb("16324f")
@@ -69,7 +72,7 @@
   ],
 )
 
-#let template(filename, doc) = {
+#let template(fach, uebungsNummer, uebungsName, versionDatum, doc) = {
   // Typografie
   set text(lang: "de")
   set par(
@@ -88,12 +91,6 @@
     body-indent: 0.6em,
     spacing: 0.55em,
   )
-
-  let parts = filename.split("_")
-  let schoolyear = parts.at(0)
-  let fach = parts.at(1)
-  let uebungsNummer = parts.at(2)
-  let uebungsName = parts.slice(3).join(" ")
 
   set page(
     width: 210mm,
@@ -116,7 +113,7 @@
           #text[Übungsblatt #uebungsNummer]
           #v(2pt)
           #text(size: 0.85em)[
-            Schuljahr #schoolyear an der #link(mainPage)[HTL Wien 3 Rennweg]
+            #klasse · Schuljahr #schuljahr an der #link(mainPage)[HTL Wien 3 Rennweg]
           ]
         ]
       )
@@ -131,10 +128,10 @@
         align: (left, right),
         stroke: none,
         [
-          Version vom 07. September 2026
+          Version vom #versionDatum
         ],
         [
-          #context [#here().page()]/#context[
+          #author · #context [#here().page()]/#context[
             #counter(page).final().at(0)
           ]
         ],
@@ -145,7 +142,15 @@
   doc
 }
 
-#let doc = template("2026_27_NWT3_01_IPv4_VLSM_RIPv2_EIGRP_OSPFv2", [
+// ========== ANPASSUNGEN ==========
+#let fach = "NWT3"
+#let uebungsNummer = "01"
+#let uebungsName = "IPv4 VLSM RIPv2 EIGRP OSPFv2"
+#let versionDatum = "07. September 2026"
+
+// ========== INHALT ==========
+
+#let doc = template(fach, uebungsNummer, uebungsName, versionDatum, [
 
 = VLSM-Adressplan erstellen
 
@@ -154,17 +159,15 @@
   
   Berücksichtige dabei, dass neben den Endgeräten auch mindestens ein Default Gateway benötigt wird.
   
-  Trage für jeden Bereich folgende Informationen ein:
-  - benötigte Hosts (aus Anforderungen)
-  - benötigte Hostadressen (Hosts + 1 für Gateway)
-  - Präfix (in CIDR-Notation)
+  Trage ein:
+  - benötigte Hosts
+  - benötigte Hostadressen
+  - Präfix
   - Subnetzmaske
-  - Anzahl verfügbarer Hostadressen nach Subnetzmaskierung
+  - Anzahl verfügbarer Hostadressen
 
   #v(0.8em)
   
-  *Übersicht der Anforderungen:*
-
   #table(
     columns: (2fr, 1fr, 1fr),
     align: (left, center, center),
@@ -180,20 +183,97 @@
   #v(1em)
   
   *Deine Lösung:*
-
+  
   #table(
     columns: (3fr, 1fr, 1fr, 1fr, 1fr),
     align: (left, center, center, center, center),
     fill: (_, row) => if row == 0 { rgb("e8eef6") } else { white },
     stroke: 0.5pt + muted,
     [*Bereich*], [*Hosts*], [*Präfix*], [*Subnetzmaske*], [*verf. Adressen*],
-    [Verwaltung], [], [], [], [],
-    [Kundenservice], [], [], [], [],
-    [Netzüberwachung], [], [], [], [],
-    [Geschäftskunden], [], [], [], [],
-    [Technik], [], [], [], [],
+    [Verwaltung], [50], [/26], [255.255.255.192], [62],
+    [Kundenservice], [25], [/27], [255.255.255.224], [30],
+    [Netzüberwachung], [10], [/28], [255.255.255.240], [14],
+    [Geschäftskunden], [14], [/28], [255.255.255.240], [14],
+    [Technik], [6], [/29], [255.255.255.248], [6],
   )
 ])
+
+== 1.2 VLSM durchführen
+
+Teile 192.168.10.0/24 mit VLSM auf.
+
+Sortiere die fünf LAN-Anforderungen für die Berechnung selbst vom größten zum kleinsten benötigten Subnetz.
+
+Bestimme für jedes LAN:
+- Netzadresse
+- Präfix
+- Subnetzmaske
+- erste Hostadresse
+- letzte Hostadresse
+- Broadcastadresse
+- geplantes Default Gateway
+
+Erstelle daraus einen vollständigen Adressplan.
+
+#v(1em)
+
+*Sortierung (von größtem zu kleinstem Subnetz):*
+
+#table(
+  columns: (2fr, 1fr, 1fr),
+  align: (left, center, center),
+  fill: (_, row) => if row == 0 { rgb("e8eef6") } else { white },
+  stroke: 0.5pt + muted,
+  [*Bereich*], [*Netzadresse*], [*Präfix*],
+  [Verwaltung], [192.168.10.0], [/26],
+  [Kundenservice], [192.168.10.64], [/27],
+  [Geschäftskunden], [192.168.10.96], [/28],
+  [Netzüberwachung], [192.168.10.112], [/28],
+  [Technik], [192.168.10.128], [/29],
+)
+
+#v(1em)
+
+*Vollständiger Adressplan:*
+
+#table(
+  columns: (2fr, 2fr, 1.5fr, 2fr, 2fr, 2fr, 2fr),
+  align: (left, center, center, center, center, center, center),
+  fill: (_, row) => if row == 0 { rgb("e8eef6") } else { white },
+  stroke: 0.5pt + muted,
+  [*Bereich*], [*Netzadresse*], [*Präfix*], [*1. Host*], [*Letzter Host*], [*Broadcast*], [*Gateway*],
+  [Verwaltung], [192.168.10.0], [/26], [192.168.10.1], [192.168.10.62], [192.168.10.63], [192.168.10.1],
+  [Kundenservice], [192.168.10.64], [/27], [192.168.10.65], [192.168.10.94], [192.168.10.95], [192.168.10.65],
+  [Geschäftskunden], [192.168.10.96], [/28], [192.168.10.97], [192.168.10.110], [192.168.10.111], [192.168.10.97],
+  [Netzüberwachung], [192.168.10.112], [/28], [192.168.10.113], [192.168.10.126], [192.168.10.127], [192.168.10.113],
+  [Technik], [192.168.10.128], [/29], [192.168.10.129], [192.168.10.134], [192.168.10.135], [192.168.10.129],
+)
+
+== 1.3 WAN-Netze planen
+
+Plane drei /30-Netze für die Verbindungen:
+- R1 ↔ R2
+- R2 ↔ R3
+- R1 ↔ R3
+
+Bestimme für jedes WAN-Netz:
+- Netzadresse
+- beide nutzbaren Hostadressen
+- Broadcastadresse
+- Zuordnung der Adressen zu den Router-Interfaces
+
+#v(1em)
+
+#table(
+  columns: (2fr, 2fr, 2fr, 2fr, 2fr),
+  align: (left, center, center, center, center),
+  fill: (_, row) => if row == 0 { rgb("e8eef6") } else { white },
+  stroke: 0.5pt + muted,
+  [*Verbindung*], [*Netzadresse*], [*Hostadresse 1*], [*Hostadresse 2*], [*Broadcast*],
+  [R1 ↔ R2], [192.168.10.136], [192.168.10.137 (R1)], [192.168.10.138 (R2)], [192.168.10.139],
+  [R2 ↔ R3], [192.168.10.140], [192.168.10.141 (R2)], [192.168.10.142 (R3)], [192.168.10.143],
+  [R1 ↔ R3], [192.168.10.144], [192.168.10.145 (R1)], [192.168.10.146 (R3)], [192.168.10.147],
+)
 
 ])
 
