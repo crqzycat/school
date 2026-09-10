@@ -146,7 +146,7 @@
 // Ändere diese Werte für dein Übungsblatt:
 
 #let fach = "BW"
-#let uebungsNummer = "00"
+#let uebungsNummer = "01"
 #let uebungsName = "Qualitätsmanagement"
 #let versionDatum = "10. September 2026"
 
