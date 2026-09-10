@@ -156,7 +156,90 @@
 
 = Qualitätsmanagement
 
-Hier kommt dein Inhalt...
+== Hubble-Weltraumteleskop
+
+Die Bildqualität war nicht so gut wie erwartet aufgrund eines Fehlers des Hauptspiegels. 1993 wurde dieser durch das COSTAR-Spiegelsystem korrigiert.
+
+== Qualität
+
+Qualität ist die Gesamtheit von Eigenschaften und Merkmalen eines Produkts oder einer Dienstleistung, die sich auf deren Eignung zur Erfüllung festgelegter oder vorausgesetzter Erfordernisse bezieht.
+
+== Qualitätsmerkmale
+
+Qualitätsmerkmale sind messbare, zählbare oder beurteilbare Produkteigenschaften, welche die Qualität des Produkts beschreiben.
+
+=== Beispiel
+
+#table(
+  columns: (25%, 35%, 40%),
+  [*Typ*], [*Qualitätsmerkmal*], [*Merkmalswert*],
+  [messbar], [Durchmesser], [10 mm, 20 mm, 30 mm],
+  [messbar], [Schichtdicke], [5 µm, 8 µm, 10 µm],
+  [zählbar], [Schweißpunkte], [10, 15, 20 je Meter],
+  [zählbar], [Schmutzpunkte], [10, 20, 30 Punkte je dm²],
+  [beurteilbar], [Design], [attraktiv / neutral / unattraktiv],
+  [beurteilbar], [Geschmack], [gut / neutral / schlecht],
+)
+
+== Anforderungsarten
+
+=== Basisanforderungen
+Produkteigenschaften, die vom Kunden selbstverständlich angesehen werden.
+
+=== Leistungsanforderungen
+Produkteigenschaften, die vom Kunden nachgefragt werden.
+
+=== Begeisterungsanforderungen
+Produkteigenschaften, die vom Kunden nicht erwartet werden, aber mit Begeisterung angenommen werden.
+
+#pagebreak()
+
+== KANO-Modell
+
+Das KANO-Modell kategorisiert Kundenanforderungen nach ihrer Auswirkung auf die Kundenzufriedenheit.
+
+#image("/images/kano-model.png", width: 100%)
+
+== Fehler
+
+Bei vielen Qualitätsmerkmalen ist es kaum oder gar nicht möglich, den Merkmalswert bei der Herstellung zu erreichen. Deswegen wird daher meistens eine Bandbreite angegeben. Der Bereich zwischen oberem und unterem Grenzwert wird als *Toleranzbereich* bezeichnet.
+
+Liegt der am Produkt gemessene Istwert des Qualitätsmerkmals außerhalb des Toleranzbereichs, hat dieses Produkt einen Fehler und muss ausgeschieden werden.
+
+=== Beispiel: Durchmesser 30 mm mit 15 µm Toleranz
+
+#table(
+  columns: (20%, 30%, 50%),
+  [*Teil*], [*Istwert*], [*Bemerkung*],
+  [1], [29,995 mm], [OK],
+  [2], [29,968 mm], [Fehler (zu klein) → Teil ausscheiden],
+  [3], [29,981 mm], [OK],
+  [4], [30,005 mm], [Fehler (zu groß) → Nacharbeit],
+)
+
+=== Fehlerklassifizierung
+
+- *Nebenfehler:* Entsprechen geringen Abweichungen, welche die Funktionalität nur unwesentlich mindern.
+- *Hauptfehler:* Sind nicht kritisch, können aber zu einem Ausfall führen.
+- *Kritische Fehler:* Können zu einer Gefahr für Personen werden.
+
+== Qualitätskosten
+
+=== Fehlerkosten
+
+Entstehen durch hergestellte Produkte, die den Qualitätsmerkmalen nicht entsprechen. Kosten entstehen durch Ausschuss, Nacharbeit, etc.
+
+=== Fehlerverhütungskosten
+
+Kosten für vorbeugende Fehlervermeidung. Dazu gehören:
+- Qualitätsplanung
+- Lieferantenbeurteilung
+- Prüfplanung
+- Mitarbeiterschulung
+
+=== Prüfkosten
+
+Kosten der Qualitätsprüfungen.
 
 ])
 
