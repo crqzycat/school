@@ -107,7 +107,7 @@
         rows: (98pt),
         stroke: none,
         align: (left, right),
-        image("htl3r_logo.jpg"),
+        image("/images/htl3r_logo_slogan_transparent.png"),
         [
           #text(weight: "bold", size: 1.2em)[
             #fach: #uebungsName
