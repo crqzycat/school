@@ -1,0 +1,27 @@
+configure terminal
+ip dhcp excluded-address 77.88.99.160 77.88.99.190
+ip dhcp excluded-address 77.88.99.192 77.88.99.198
+ip dhcp excluded-address 77.88.99.128 77.88.99.142
+ip dhcp excluded-address 77.88.99.32 77.88.99.34
+ip dhcp pool POOL-DONAUSTADT-ZENTRALE
+network 77.88.99.160 255.255.255.224
+default-router 77.88.99.160
+dns-server 30.40.50.70
+exit
+ip dhcp pool POOL-DONAUSTADT-MARKETING
+network 77.88.99.192 255.255.255.224
+default-router 77.88.99.192
+dns-server 30.40.50.70
+exit
+ip dhcp pool POOL-DONAUSTADT-ADMIN
+network 77.88.99.128 255.255.255.240
+default-router 77.88.99.128
+dns-server 30.40.50.70
+exit
+ip dhcp pool POOL-LIESING
+network 77.88.99.32 255.255.255.252
+default-router 77.88.99.32
+dns-server 30.40.50.70
+exit
+exit
+copy running-config startup-config
