@@ -1,0 +1,17 @@
+configure terminal
+interface Fa0/0
+ no ip address
+exit
+interface Fa0/0.40
+encapsulation dot1Q 40
+ip address 77.88.99.14 255.255.255.240
+exit
+interface Fa0/0.99
+encapsulation dot1Q 99 native
+ip address 77.88.99.30 255.255.255.240
+exit
+interface Fa0/0
+ no shutdown
+exit
+exit
+copy running-config startup-config

@@ -1,0 +1,30 @@
+configure terminal
+vlan 40
+name VLAN40_Production
+exit
+vlan 99
+name VLAN99_Management
+exit
+interface vlan 99
+ ip address 77.88.99.25 255.255.255.240
+exit
+ip default-gateway 77.88.99.16
+interface Fa0/1
+ switchport mode access
+ switchport access vlan 40
+exit
+interface Fa0/2
+ switchport mode access
+ switchport access vlan 40
+exit
+interface Fa0/3
+ switchport mode access
+ switchport access vlan 99
+exit
+interface Fa0/4
+ switchport mode trunk
+ switchport trunk native vlan 99
+ switchport trunk allowed vlan 40,99
+exit
+exit
+copy running-config startup-config

@@ -1,0 +1,5 @@
+configure terminal
+ip route 77.88.99.0 255.255.255.0 S0/0
+ip route 33.44.0.0 255.255.255.0 S0/0
+exit
+copy running-config startup-config

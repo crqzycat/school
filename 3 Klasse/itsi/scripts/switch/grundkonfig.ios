@@ -1,0 +1,14 @@
+configure terminal
+hostname SW-Hietzing
+enable secret 4xF
+line console 0
+password 4xF
+login
+exit
+line vty 0 15
+password 4xF
+login
+exit
+banner motd ^Privates System - Logoff!^
+exit
+copy running-config startup-config

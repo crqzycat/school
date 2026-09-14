@@ -1,0 +1,11 @@
+configure terminal
+router rip
+version 2
+network 77.88.99.0
+network 33.44.0.0
+no auto-summary
+passive-interface Fa0/0.40
+passive-interface Fa0/0.99
+exit
+exit
+copy running-config startup-config

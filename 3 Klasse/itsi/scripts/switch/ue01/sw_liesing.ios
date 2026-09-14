@@ -1,0 +1,20 @@
+configure terminal
+interface vlan 1
+ ip address 77.88.99.33 255.255.255.252
+exit
+ip default-gateway 77.88.99.32
+interface Fa0/1
+ switchport mode access
+ switchport access vlan 1
+exit
+interface Fa0/2
+ switchport mode access
+ switchport access vlan 1
+exit
+interface Fa0/3
+ switchport mode trunk
+ switchport trunk native vlan 1
+ switchport trunk allowed vlan 1
+exit
+exit
+copy running-config startup-config
