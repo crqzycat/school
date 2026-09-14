@@ -1,0 +1,15 @@
+configure terminal
+ip dhcp excluded-address 77.88.99.0 77.88.99.14
+ip dhcp excluded-address 77.88.99.16 77.88.99.30
+ip dhcp pool POOL-HIETZING-PRODUKTION
+network 77.88.99.0 255.255.255.240
+default-router 77.88.99.0
+dns-server 30.40.50.70
+exit
+ip dhcp pool POOL-HIETZING-MANAGEMENT
+network 77.88.99.16 255.255.255.240
+default-router 77.88.99.16
+dns-server 30.40.50.70
+exit
+exit
+copy running-config startup-config
