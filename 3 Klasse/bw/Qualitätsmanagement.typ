@@ -243,6 +243,68 @@ Kosten für vorbeugende Fehlervermeidung. Dazu gehören:
 
 Kosten der Qualitätsprüfungen.
 
+=== Qualitätskosten gesamt
+
+*Qualitätskosten = Fehlerkosten + Prüfkosten + Fehlerverhütungskosten*
+
+#highlight("Größenanordnung der Qualitätskosten", [
+- Fehlerkosten: 78%
+- Prüfkosten: 15%
+- Fehlerverhütungskosten: 7%
+])
+
+#note("Wichtiger Hinweis", [
+Desto später Fehler entdeckt werden, desto mehr kostet es. Deshalb ist Qualitätsmanagement so wichtig!
+])
+
+#pagebreak()
+
+== Bereiche des Qualitätsmanagements
+
+- *Qualitätsplanung* (Prävention – proaktiv)
+- *Qualitätsprüfung* (Überwachung – während/nach)
+- *Qualitätslenkung* (Kontrolle – laufend)
+- *Qualitätsverbesserung* (Optimierung – kontinuierlich)
+
+== Qualitätsplanung
+
+Zur Qualitätsplanung gehören:
+- Die konkrete Festlegung der Qualitätsmerkmale der Produkte, basierend auf den Kundenanforderungen
+- Die Festlegung von Toleranzbereichen für diese Merkmalswerte
+- Die Verbesserung von Prozessen bei der Leistungserstellung (z.B. Werkzeugauswahl, Ablaufpläne, Maschineneinstellungen, Transportvorschriften)
+- Lieferantenbeurteilung
+- Mitarbeiterschulung
+
+== Qualitätsprüfung
+
+Die Qualitätsprüfung beantwortet folgende Fragen:
+
+#table(
+  columns: (20%, 80%),
+  [*Frage*], [*Erklärung*],
+  [Was?], [Welches Merkmal wird geprüft?],
+  [Wie viel?], [Welche Stückzahl?],
+  [Wie oft?], [Welche Häufigkeit?],
+  [Womit?], [Welches Prüfmittel?],
+  [Wie?], [Welche Prüfmethode?],
+  [Wann?], [Welcher Prüfzeitpunkt?],
+  [Durch wen?], [Wer prüft?],
+  [Wo?], [Welcher Prüfort?],
+  [Verarbeitung?], [Was passiert mit den Prüfdaten?],
+)
+
+#note("Archivierung der Prüfdaten", [
+Die gemessenen Prüfdaten werden archiviert und ermöglichen bei Bedarf die Rückverfolgung. Es ist nicht nur wichtig zu wissen, ob etwas fehlerhaft ist, sondern auch _was_ fehlerhaft ist.
+])
+
+== Qualitätslenkung
+
+*Qualitätslenkung* → Beherrschung der qualitätsrelevanten Prozesse. Dabei werden die Prozesse während der Produktion überwacht und gesteuert.
+
+== Qualitätsverbesserung
+
+Kontinuierliche Optimierung und Verbesserung der Qualitätsprozesse basierend auf Prüfergebnissen und Feedback.
+
 ])
 
 #doc
