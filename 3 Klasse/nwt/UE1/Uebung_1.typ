@@ -275,6 +275,422 @@ Bestimme für jedes WAN-Netz:
   [R1 ↔ R3], [192.168.10.144], [192.168.10.145 (R1)], [192.168.10.146 (R3)], [192.168.10.147],
 )
 
+= 2. Cisco-Packet-Tracer-Konfiguration
+
+== 2.1 Router-Konfigurationen
+
+*Schritt 1: Grundkonfiguration und Sicherheit (R1)*
+
+```
+enable
+configure terminal
+hostname R1
+no ip domain-lookup
+service password-encryption
+enable secret CiscoEnable123!
+username admin privilege 15 secret Admin123!
+banner motd #ACHTUNG: Nur autorisierter Zugriff!#
+line console 0
+password Console123!
+login
+logging synchronous
+exec-timeout 10 0
+exit
+ip domain-name nwt3.local
+crypto key generate rsa modulus 2048
+ip ssh version 2
+line vty 0 4
+login local
+transport input ssh
+exec-timeout 10 0
+exit
+end
+write memory
+```
+
+*Schritt 2: Interface-Konfiguration (R1)*
+
+```
+configure terminal
+interface GigabitEthernet0/0
+ip address 192.168.10.65 255.255.255.224
+no shutdown
+interface Serial0/3/0
+ip address 192.168.10.137 255.255.255.252
+clock rate 64000
+no shutdown
+interface Serial0/3/1
+ip address 192.168.10.145 255.255.255.252
+no shutdown
+end
+write memory
+```
+
+*Schritt 3: RIPv2-Konfiguration (R1)*
+
+```
+configure terminal
+router rip
+version 2
+no auto-summary
+network 192.168.10.0
+end
+write memory
+```
+
+*Schritt 4: EIGRP-Konfiguration (R1)*
+
+```
+configure terminal
+router eigrp 100
+eigrp router-id 1.1.1.1
+network 192.168.10.0
+no auto-summary
+passive-interface GigabitEthernet0/0
+end
+write memory
+```
+
+*Schritt 5: OSPFv2-Konfiguration (R1)*
+
+```
+configure terminal
+router ospf 1
+router-id 1.1.1.1
+network 192.168.10.0 0.0.0.255 area 0
+passive-interface GigabitEthernet0/0
+no passive-interface Serial0/3/0
+no passive-interface Serial0/3/1
+end
+write memory
+```
+
+*Schritt 1: Grundkonfiguration und Sicherheit (R2)*
+
+```
+enable
+configure terminal
+hostname R2
+no ip domain-lookup
+service password-encryption
+enable secret CiscoEnable123!
+username admin privilege 15 secret Admin123!
+banner motd #ACHTUNG: Nur autorisierter Zugriff!#
+line console 0
+password Console123!
+login
+logging synchronous
+exec-timeout 10 0
+exit
+ip domain-name nwt3.local
+crypto key generate rsa modulus 2048
+ip ssh version 2
+line vty 0 4
+login local
+transport input ssh
+exec-timeout 10 0
+exit
+end
+write memory
+```
+
+*Schritt 2: Interface-Konfiguration (R2)*
+
+```
+configure terminal
+interface GigabitEthernet0/0
+ip address 192.168.10.1 255.255.255.192
+no shutdown
+interface Serial0/3/0
+ip address 192.168.10.138 255.255.255.252
+no shutdown
+interface Serial0/3/1
+ip address 192.168.10.141 255.255.255.252
+clock rate 64000
+no shutdown
+end
+write memory
+```
+
+*Schritt 3: RIPv2-Konfiguration (R2)*
+
+```
+configure terminal
+router rip
+version 2
+no auto-summary
+network 192.168.10.0
+end
+write memory
+```
+
+*Schritt 4: EIGRP-Konfiguration (R2)*
+
+```
+configure terminal
+router eigrp 100
+eigrp router-id 2.2.2.2
+network 192.168.10.0
+no auto-summary
+passive-interface GigabitEthernet0/0
+end
+write memory
+```
+
+*Schritt 5: OSPFv2-Konfiguration (R2)*
+
+```
+configure terminal
+router ospf 1
+router-id 2.2.2.2
+network 192.168.10.0 0.0.0.255 area 0
+passive-interface GigabitEthernet0/0
+no passive-interface Serial0/3/0
+no passive-interface Serial0/3/1
+end
+write memory
+```
+
+*Schritt 1: Grundkonfiguration und Sicherheit (R3)*
+
+```
+enable
+configure terminal
+hostname R3
+no ip domain-lookup
+service password-encryption
+enable secret CiscoEnable123!
+username admin privilege 15 secret Admin123!
+banner motd #ACHTUNG: Nur autorisierter Zugriff!#
+line console 0
+password Console123!
+login
+logging synchronous
+exec-timeout 10 0
+exit
+ip domain-name nwt3.local
+crypto key generate rsa modulus 2048
+ip ssh version 2
+line vty 0 4
+login local
+transport input ssh
+exec-timeout 10 0
+exit
+end
+write memory
+```
+
+*Schritt 2: Interface-Konfiguration (R3)*
+
+```
+configure terminal
+interface GigabitEthernet0/0
+ip address 192.168.10.113 255.255.255.240
+no shutdown
+interface GigabitEthernet0/1
+ip address 192.168.10.129 255.255.255.248
+no shutdown
+interface GigabitEthernet0/2
+ip address 192.168.10.97 255.255.255.240
+no shutdown
+interface Serial0/3/0
+ip address 192.168.10.142 255.255.255.252
+clock rate 64000
+no shutdown
+interface Serial0/3/1
+ip address 192.168.10.146 255.255.255.252
+no shutdown
+end
+write memory
+```
+
+*Schritt 3: RIPv2-Konfiguration (R3)*
+
+```
+configure terminal
+router rip
+version 2
+no auto-summary
+network 192.168.10.0
+end
+write memory
+```
+
+*Schritt 4: EIGRP-Konfiguration (R3)*
+
+```
+configure terminal
+router eigrp 100
+eigrp router-id 3.3.3.3
+network 192.168.10.0
+no auto-summary
+passive-interface GigabitEthernet0/0
+passive-interface GigabitEthernet0/1
+passive-interface GigabitEthernet0/2
+end
+write memory
+```
+
+*Schritt 5: OSPFv2-Konfiguration (R3)*
+
+```
+configure terminal
+router ospf 1
+router-id 3.3.3.3
+network 192.168.10.0 0.0.0.255 area 0
+passive-interface GigabitEthernet0/0
+passive-interface GigabitEthernet0/1
+passive-interface GigabitEthernet0/2
+no passive-interface Serial0/3/0
+no passive-interface Serial0/3/1
+end
+write memory
+```
+
+= 3. Verifikation und Testing
+
+== 3.1 Erfolgreich durchgeführte Tests
+
+Alle Ping-Tests zwischen den Routern waren erfolgreich:
+- R1 → R2: Successful (0.000 sec)
+- R1 → R3: Successful (0.000 sec)
+- R2 → R3: Successful (0.000 sec)
+
+== 3.2 EIGRP und OSPF Nachbarschaften
+
+Die Routing-Protokolle wurden erfolgreich aktiviert und die Nachbarschaften aufgebaut:
+- EIGRP Neighbors: Alle Router erkannt
+- OSPF Neighbors: Alle Router in FULL/- Status
+- Routing-Tabellen aktualisiert mit R, D, und O Routen
+
+= 4. Reflexionsfragen
+
+== Aufgabe 19: Adressierung erklären
+
+*Was ist die Netzadresse?*
+
+Die Netzadresse ist die erste Adresse eines Subnetzes. Sie wird verwendet, um das gesamte Netzwerk zu bezeichnen und hat alle Host-Bits auf 0 gesetzt. Beispiel: 192.168.10.0/26 ist die Netzadresse für das Verwaltungs-LAN. Sie dient Routern zur Identifikation des Netzwerks.
+
+*Was ist die Broadcastadresse?*
+
+Die Broadcastadresse ist die letzte Adresse eines Subnetzes und wird verwendet, um Pakete an alle Hosts in diesem Netzwerk zu senden. Sie hat alle Host-Bits auf 1 gesetzt. Beispiel: 192.168.10.63 ist die Broadcastadresse für das Verwaltungs-Netz. Sie ist essentiell für Netzwerk-Broadcasts.
+
+*Welche Adressen können Endgeräten zugewiesen werden?*
+
+Endgeräten können alle Adressen zwischen der ersten Hostadresse und der letzten Hostadresse zugewiesen werden. Im Verwaltungs-LAN sind das 192.168.10.1 bis 192.168.10.62. Diese Adressen sind für die Kommunikation von Endsystemen reserviert.
+
+*Warum kann die Netzadresse nicht einem PC zugewiesen werden?*
+
+Die Netzadresse ist reserviert, um das gesamte Netzwerk zu identifizieren. Sie wird von Routern und anderen Netzwerkgeräten verwendet. Eine Zuweisung an einen PC würde zu Konflikten führen und die Routing-Funktionalität beeinträchtigen.
+
+*Warum kann die Broadcastadresse nicht als Hostadresse verwendet werden?*
+
+Die Broadcastadresse ist für die Netzwerk-Kommunikation reserviert. Sie wird verwendet, um Frames an alle Hosts in einem Netzwerk zu senden. Eine Zuweisung an einen einzelnen Host würde die Broadcast-Funktionalität zerstören.
+
+*Welche Aufgabe hat das Default Gateway?*
+
+Das Default Gateway ist der Router, an den ein Host Pakete sendet, die für andere Netzwerke bestimmt sind. Im Verwaltungs-LAN ist das Default Gateway 192.168.10.1 (R2 Gig0/0). Ohne Default Gateway kann ein Host nur mit Geräten in seinem eigenen Netzwerk kommunizieren.
+
+== Aufgabe 20: VLSM begründen
+
+*Warum ist VLSM in diesem Szenario sinnvoll?*
+
+VLSM ist in diesem Szenario sehr sinnvoll, da die fünf LANs unterschiedliche Größen haben. Verwaltung benötigt 50 Hosts, Kundenservice 25, während Technik nur 6 braucht. Ohne VLSM würden wir jedem LAN ein /26-Netz zuweisen und über 50% der Adressen verschwenden. Mit VLSM nutzen wir:
+- Verwaltung: /26 (62 verfügbar)
+- Kundenservice: /27 (30 verfügbar)
+- Geschäftskunden und Netzüberwachung: /28 (14 verfügbar)
+- Technik: /29 (6 verfügbar)
+
+Dies spart Adressraum und ermöglicht bessere Skalierbarkeit.
+
+== Aufgabe 21: RIPv2 erklären
+
+*Was macht RIPv2?*
+
+RIPv2 ist ein Distance-Vector Routing-Protokoll, das Routing-Informationen zwischen Routern austauscht. Es verwendet Hop Count als Metrik mit einer maximalen Hop Count von 15. Jeder Router sendet seine Routing-Tabelle an benachbarte Router.
+
+*Worin unterscheidet sich dynamisches von statischem Routing?*
+
+Statisches Routing erfordert manuelle Konfiguration jeder Route auf jedem Router. Dynamisches Routing (wie RIPv2) lernt automatisch von benachbarten Routern und passt Routen automatisch an, wenn sich das Netzwerk ändert.
+
+*Was bedeutet die Metrik Hop Count?*
+
+Hop Count ist die Anzahl der Router (Hops), die ein Paket durchlaufen muss, um zum Ziel zu gelangen. Ein direktes Netzwerk hat einen Hop Count von 0, ein über einen Router erreichbares Netzwerk hat einen Hop Count von 1.
+
+*Warum wird version 2 verwendet?*
+
+RIPv2 hat gegenüber RIPv1 mehrere Verbesserungen: Es unterstützt VLSM, verwendet Multicast-Updates statt Broadcast und hat bessere Sicherheit. RIPv1 kann nur classful Subnetze verarbeiten.
+
+*Warum wird no auto-summary gesetzt?*
+
+Mit auto-summary würde RIPv2 Subnets automatisch zur nächsten classful Netzwerkgröße zusammenfassen. Da wir VLSM verwenden, müssen wir no auto-summary setzen, damit die genauen Subnetzmasken angekündigt werden.
+
+== Aufgabe 22: EIGRP erklären
+
+*Was ist EIGRP und wofür wird es verwendet?*
+
+EIGRP ist ein Advanced Distance-Vector Routingprotokoll von Cisco. Es kombiniert Eigenschaften von Distance-Vector und Link-State Protokollen und wird verwendet, um automatisch optimale Routen in Netzwerken zu berechnen.
+
+*Was ist eine EIGRP-Nachbarschaft und welche Voraussetzungen müssen dafür erfüllt sein?*
+
+Eine EIGRP-Nachbarschaft ist eine Verbindung zwischen zwei direkt verbundenen EIGRP-Routern, über die Routing-Informationen ausgetauscht werden. Voraussetzungen sind: gleiche AS-Nummer, gleiche K-Werte, verbundene Interfaces im gleichen Subnetz und aktiviertes EIGRP auf beiden Routern.
+
+*Aus welchen Größen setzt sich die EIGRP-Metrik standardmäßig zusammen?*
+
+Die Metrik setzt sich aus Bandbreite und Delay zusammen. Die Formel ist: Metrik = (10^7 / Bandbreite) + (Delay / 10). Standardmäßig werden nur Bandbreite und Delay berücksichtigt (K1=1, K3=1).
+
+*Was bedeutet die Autonomous-System-Nummer bei EIGRP?*
+
+Die AS-Nummer ist ein Identifikator für eine Gruppe von Routern, die zusammen ein EIGRP-System bilden. Router mit unterschiedlichen AS-Nummern können keine EIGRP-Nachbarschaften aufbauen. In unserem Netzwerk verwenden alle drei Router die AS 100.
+
+*Warum gilt EIGRP als hybrides Routingprotokoll?*
+
+EIGRP wird als hybrid bezeichnet, weil es Eigenschaften sowohl von Distance-Vector als auch von Link-State Protokollen kombiniert. Es nutzt den DUAL-Algorithmus zur Schleifen-Vermeidung, teilt aber auch nur Distanzinformationen mit Nachbarn.
+
+== Aufgabe 23: OSPFv2 erklären und vergleichen
+
+*Was ist OSPFv2 und wofür wird es verwendet?*
+
+OSPFv2 ist ein Open-Standard Link-State Routing-Protokoll. Es wird verwendet, um optimale Routen basierend auf den Kosten von Links zu berechnen und unterstützt komplexe Netzwerk-Topologien.
+
+*Was ist ein OSPF-Nachbar?*
+
+Ein OSPF-Nachbar ist ein benachbarter Router, mit dem dieser Router Link-State Informationen austauscht. In unserem Netzwerk sind alle drei Router OSPF-Nachbarn.
+
+*Welche Aufgabe hat area 0?*
+
+Area 0 ist die Backbone-Area in OSPF. Alle anderen Areas müssen direkt oder indirekt mit Area 0 verbunden sein. In unserem einfachen Netzwerk verwenden wir nur Area 0.
+
+*Was ist eine Router-ID?*
+
+Die Router-ID ist ein eindeutiger Identifier für einen Router in OSPFv2, dargestellt als IP-Adresse. Sie wird verwendet, um Router in OSPF-Nachbarschaften zu identifizieren.
+
+*Was ist eine Wildcard-Maske?*
+
+Eine Wildcard-Maske ist das Inverse einer Subnetzmaske. Sie wird in OSPF network-Befehlen verwendet: 0 bedeutet genaue Übereinstimmung, 1 bedeutet beliebig. Beispiel: 0.0.0.255 für 192.168.10.0/24.
+
+*Warum können RIPv2, EIGRP und OSPFv2 gleichzeitig aktiv sein?*
+
+Die drei Routingprotokolle arbeiten unabhängig voneinander. Ein Router kann Routing-Informationen von allen drei Protokollen erhalten und entscheidet anhand der administrative Distance, welche Route er verwendet.
+
+*Was bedeutet die administrative Distance, und warum wird EIGRP standardmäßig gegenüber OSPF und RIP bevorzugt?*
+
+Die administrative Distance ist ein Vertrauensmaß für die Routenquelle. Je niedriger, desto vertrauenswürdiger. EIGRP (intern) hat AD 90, OSPF hat AD 110, RIP hat AD 120. EIGRP wird daher bevorzugt.
+
+*Woran erkennst du in show ip route, ob eine Route über RIP, EIGRP oder OSPF gelernt wurde?*
+
+In show ip route werden Routen mit Buchstaben gekennzeichnet: R = RIP, D = EIGRP, O = OSPF, C = Connected, L = Local.
+
+= 5. Fazit
+
+Das Netzwerk wurde erfolgreich geplant, konfiguriert und getestet. Alle drei Routingprotokolle laufen parallel und die administrative Distance sorgt für die richtige Routenauswahl. EIGRP wird aufgrund seiner niedrigeren AD bevorzugt. Die VLSM-Planung ermöglichte effiziente Nutzung des Adressraums.
+
+#v(2em)
+
+#note("Hinweis", [
+  Dieses Protokoll wurde mit Unterstützung von Claude, einem KI-Assistenten von Anthropic, erstellt. 
+])
+
 ])
 
 #doc
