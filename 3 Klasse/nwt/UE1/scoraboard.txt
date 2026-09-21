@@ -1,0 +1,28 @@
+WÜRFELPOKER SCOREBOARD
+=====================
+
+Datum: 21.9.2026
+Uhrzeit: 11:18:41
+Gespielte Runden: 3
+
+Spieler 1: Bastion
+Spieler 2: Ich
+
+DETAILIERTE ERGEBNISSE:
+----------------------
+Runde 1:
+  Bastion: 250 Punkte
+  Ich: 200 Punkte
+Runde 2:
+  Bastion: 30 Punkte
+  Ich: 600 Punkte
+Runde 3:
+  Bastion: 370 Punkte
+  Ich: 120 Punkte
+
+GESAMTPUNKTE:
+-------------
+Bastion: 650 Punkte
+Ich: 920 Punkte
+
+GEWINNER: Ich
