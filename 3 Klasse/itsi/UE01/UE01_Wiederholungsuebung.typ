@@ -154,9 +154,85 @@
 
 #let doc = template(fach, uebungsNummer, uebungsName, versionDatum, [
 
-= Überschrift
+= Grundkonfiguration von Router und Switches
 
-Hier kommt dein Inhalt...
+Als Ausgangspunkt der Übung wurde auf allen Geräten eine Grundkonfiguration vorgenommen. Dazu gehören der Hostname, die Absicherung des privilegierten Modus und der Konsolen- bzw. VTY-Zugänge mit Passwörtern, ein Banner sowie die Verschlüsselung der Klartext-Passwörter. Außerdem wurden die benötigten Interfaces aktiviert und beschriftet. Die Grundkonfiguration stellt sicher, dass alle Geräte einheitlich eingerichtet und für die weiteren Schritte erreichbar sind.
+
+#figure(
+  image("/images/itsi/ue01/grundkonfig.png", width: 100%),
+  caption: [Grundkonfiguration auf Router und Switches],
+)
+
+= VLAN-Konfiguration auf den Switches
+
+Um das Netzwerk in getrennte Broadcast-Domänen zu unterteilen, wurden auf den Switches mehrere VLANs angelegt und benannt. Die Endgeräteports wurden als Access-Ports dem jeweiligen VLAN zugewiesen. Die Verbindungen zwischen den Switches und zum Router wurden als Trunk-Ports konfiguriert, damit der Verkehr mehrerer VLANs über eine einzelne Leitung übertragen werden kann.
+
+#note("Hinweis", [
+  Ports, die keinem VLAN zugewiesen sind, sollten aus Sicherheitsgründen deaktiviert oder in ein ungenutztes VLAN verschoben werden.
+])
+
+= Router on a Stick
+
+Damit Geräte aus unterschiedlichen VLANs miteinander kommunizieren können, wird Inter-VLAN-Routing benötigt. Dafür kommt die Methode _Router on a Stick_ zum Einsatz. Das physische Interface des Routers wird in mehrere Subinterfaces unterteilt, wobei jedes Subinterface einem VLAN entspricht. Jedem Subinterface wird ein 802.1Q-Encapsulation-Tag und die IP-Adresse des Default-Gateways für das jeweilige VLAN zugewiesen. Der Switch-Port zum Router muss dabei als Trunk konfiguriert sein.
+
+#figure(
+  image("/images/itsi/ue01/router_on_stick.png", width: 100%),
+  caption: [Router on a Stick mit Subinterfaces pro VLAN],
+)
+
+= RIP und statische Routen
+
+Für die Verbindung zwischen mehreren Netzen wurde eine Kombination aus dynamischem und statischem Routing verwendet. Mit RIP tauschen die Router ihre bekannten Netze automatisch untereinander aus, sodass neue oder geänderte Strecken ohne manuelle Anpassung erlernt werden. Ergänzend wurden statische Routen konfiguriert, etwa für Netze, die nicht über RIP erreichbar sind, oder als Default-Route Richtung Ausgang.
+
+#figure(
+  image("/images/itsi/ue01/rip_plus_static.png", width: 100%),
+  caption: [Konfiguration von RIP und statischen Routen],
+)
+
+#infobox("Zur Erinnerung", [
+  Statische Routen haben eine niedrigere administrative Distanz (1) als RIP (120) und werden daher bei gleichem Ziel bevorzugt.
+])
+
+= DHCP
+
+Damit die Endgeräte nicht manuell konfiguriert werden müssen, wurde auf dem Router ein DHCP-Server eingerichtet. Für jedes VLAN gibt es einen eigenen Adresspool mit Netzadresse, Default-Gateway und DNS-Server. Adressen, die für Router, Switches oder Server reserviert sind, wurden zuvor von der Vergabe ausgenommen. Die Endgeräte beziehen ihre Adresse nun automatisch, was sich über die DHCP-Bindings überprüfen lässt.
+
+#figure(
+  image("/images/itsi/ue01/dhcp.png", width: 100%),
+  caption: [DHCP-Konfiguration und Adressvergabe],
+)
+
+= Troubleshooting
+
+Beim Aufbau und Testen der Konfiguration ist es wichtig, Fehler systematisch einzugrenzen. Ein bewährtes Vorgehen ist, von unten nach oben zu prüfen: zuerst die physische Verbindung und die Interfaces, dann VLANs und Trunks, danach Routing und zuletzt die Dienste wie DHCP.
+
+== Häufig verwendete Befehle
+
+```text
+show ip interface brief     // Status und IP-Adressen der Interfaces
+show vlan brief             // VLANs und zugewiesene Ports
+show interfaces trunk       // Trunk-Ports und erlaubte VLANs
+show ip route               // Routing-Tabelle
+show ip protocols           // Informationen zu RIP
+show ip dhcp binding        // vergebene DHCP-Adressen
+show running-config         // aktuelle Konfiguration
+ping / traceroute           // Erreichbarkeit und Pfad testen
+```
+
+== Typische Fehlerquellen
+
+- Interface ist administrativ down (`no shutdown` fehlt).
+- Port im falschen VLAN oder Trunk erlaubt das VLAN nicht.
+- Falsche Encapsulation oder falsche IP-Adresse auf dem Subinterface.
+- Netze werden bei RIP nicht mit `network` angekündigt.
+- Fehlende Default-Route oder falsches Next Hop bei statischen Routen.
+- DHCP-Pool passt nicht zum Netz oder das Gateway ist falsch eingetragen.
+
+= Hinweis zur Erstellung
+
+#note("Verwendung von KI", [
+  Dieses Protokoll wurde mit Unterstützung von Claude, einem KI-Assistenten der Firma Anthropic, erstellt. Die Konfiguration und die Screenshots stammen aus der eigenen Durchführung der Übung.
+])
 
 ])
 
