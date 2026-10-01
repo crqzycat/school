@@ -1,9 +1,11 @@
 #let mainPage = "https://www.htlrennweg.at/"
+
 #let author = "Nils Piskorz"
 #let klasse = "3BI"
 #let schuljahr = "2026/2027"
 
 // Gemeinsame Gestaltung
+
 #let navy = rgb("16324f")
 #let blue = rgb("227c9d")
 #let mint = rgb("d9f3ee")
@@ -51,13 +53,27 @@
 )
 
 #let infobox(title, body) = block(
-  fill: rgb("eaf4fb"), radius: 5pt, inset: 7.5pt, width: 100%,
-  [#text(weight: "bold", fill: navy)[#title]#linebreak()#body],
+  fill: rgb("eaf4fb"),
+  radius: 5pt,
+  inset: 7.5pt,
+  width: 100%,
+  [
+    #text(weight: "bold", fill: navy)[#title]
+    #linebreak()
+    #body
+  ],
 )
 
-#let highlight(title, body) = block(
-  fill: yellow, radius: 5pt, inset: 7.5pt, width: 100%,
-  [#text(weight: "bold", fill: navy)[#title]#linebreak()#body],
+#let hinweis(title, body) = block(
+  fill: yellow,
+  radius: 5pt,
+  inset: 7.5pt,
+  width: 100%,
+  [
+    #text(weight: "bold", fill: navy)[#title]
+    #linebreak()
+    #body
+  ],
 )
 
 #let task(number, title, body) = block(
@@ -73,19 +89,19 @@
 )
 
 #let template(fach, uebungsNummer, uebungsName, versionDatum, doc) = {
-  // Typografie
   set text(lang: "de")
+
   set par(
     justify: true,
     spacing: 0.8em,
   )
 
-  // Listen: etwas mehr Luft und deutliche Einrückung
   set list(
     indent: 1.4em,
     body-indent: 0.6em,
     spacing: 0.55em,
   )
+
   set enum(
     indent: 1.4em,
     body-indent: 0.6em,
@@ -95,7 +111,12 @@
   set page(
     width: 210mm,
     height: 297mm,
-    margin: (top: 40mm, bottom: 25mm, left: 20mm, right: 20mm),
+    margin: (
+      top: 40mm,
+      bottom: 25mm,
+      left: 20mm,
+      right: 20mm,
+    ),
     header-ascent: 5mm,
 
     header: [
@@ -104,32 +125,43 @@
         rows: (98pt),
         stroke: none,
         align: (left, right),
+
         image("/images/htl3r_logo_slogan_transparent.png"),
+
         [
           #text(weight: "bold", size: 1.2em)[
             #fach: #uebungsName
           ]
+
           #v(4pt)
+
           #text[Übungsblatt #uebungsNummer]
+
           #v(2pt)
+
           #text(size: 0.85em)[
-            #klasse · Schuljahr #schuljahr an der #link(mainPage)[HTL Wien 3 Rennweg]
+            #klasse · Schuljahr #schuljahr an der
+            #link(mainPage)[HTL Wien 3 Rennweg]
           ]
         ]
       )
+
       #line(length: 100%)
     ],
 
     footer: [
       #line(length: 100%)
+
       #table(
         columns: (50%, 50%),
         rows: (auto),
         align: (left, right),
         stroke: none,
+
         [
           Version vom #versionDatum
         ],
+
         [
           #author · #context [#here().page()]/#context[
             #counter(page).final().at(0)
@@ -143,7 +175,6 @@
 }
 
 // ========== ANPASSUNGEN ==========
-// Ändere diese Werte für dein Übungsblatt:
 
 #let fach = "BW"
 #let uebungsNummer = "01"
@@ -172,24 +203,48 @@ Qualitätsmerkmale sind messbare, zählbare oder beurteilbare Produkteigenschaft
 
 #table(
   columns: (25%, 35%, 40%),
-  [*Typ*], [*Qualitätsmerkmal*], [*Merkmalswert*],
-  [messbar], [Durchmesser], [10 mm, 20 mm, 30 mm],
-  [messbar], [Schichtdicke], [5 µm, 8 µm, 10 µm],
-  [zählbar], [Schweißpunkte], [10, 15, 20 je Meter],
-  [zählbar], [Schmutzpunkte], [10, 20, 30 Punkte je dm²],
-  [beurteilbar], [Design], [attraktiv / neutral / unattraktiv],
-  [beurteilbar], [Geschmack], [gut / neutral / schlecht],
+
+  [*Typ*],
+  [*Qualitätsmerkmal*],
+  [*Merkmalswert*],
+
+  [messbar],
+  [Durchmesser],
+  [10 mm, 20 mm, 30 mm],
+
+  [messbar],
+  [Schichtdicke],
+  [5 µm, 8 µm, 10 µm],
+
+  [zählbar],
+  [Schweißpunkte],
+  [10, 15, 20 je Meter],
+
+  [zählbar],
+  [Schmutzpunkte],
+  [10, 20, 30 Punkte je dm²],
+
+  [beurteilbar],
+  [Design],
+  [attraktiv / neutral / unattraktiv],
+
+  [beurteilbar],
+  [Geschmack],
+  [gut / neutral / schlecht],
 )
 
 == Anforderungsarten
 
 === Basisanforderungen
+
 Produkteigenschaften, die vom Kunden selbstverständlich angesehen werden.
 
 === Leistungsanforderungen
-Produkteigenschaften, die vom Kunden nachgefragt werden.
+
+Produkteigenschaften, die vom Kunden nachgefragt werden und zur Differenzierung vom Wettbewerb beitragen.
 
 === Begeisterungsanforderungen
+
 Produkteigenschaften, die vom Kunden nicht erwartet werden, aber mit Begeisterung angenommen werden.
 
 #pagebreak()
@@ -202,7 +257,9 @@ Das KANO-Modell kategorisiert Kundenanforderungen nach ihrer Auswirkung auf die 
 
 == Fehler
 
-Bei vielen Qualitätsmerkmalen ist es kaum oder gar nicht möglich, den Merkmalswert bei der Herstellung zu erreichen. Deswegen wird daher meistens eine Bandbreite angegeben. Der Bereich zwischen oberem und unterem Grenzwert wird als *Toleranzbereich* bezeichnet.
+Bei vielen Qualitätsmerkmalen ist es kaum oder gar nicht möglich, den Merkmalswert bei der Herstellung zu erreichen.
+
+Deswegen wird meistens eine Bandbreite angegeben. Der Bereich zwischen oberem und unterem Grenzwert wird als *Toleranzbereich* bezeichnet.
 
 Liegt der am Produkt gemessene Istwert des Qualitätsmerkmals außerhalb des Toleranzbereichs, hat dieses Produkt einen Fehler und muss ausgeschieden werden.
 
@@ -210,30 +267,50 @@ Liegt der am Produkt gemessene Istwert des Qualitätsmerkmals außerhalb des Tol
 
 #table(
   columns: (20%, 30%, 50%),
-  [*Teil*], [*Istwert*], [*Bemerkung*],
-  [1], [29,995 mm], [OK],
-  [2], [29,968 mm], [Fehler (zu klein) → Teil ausscheiden],
-  [3], [29,981 mm], [OK],
-  [4], [30,005 mm], [Fehler (zu groß) → Nacharbeit],
+
+  [*Teil*],
+  [*Istwert*],
+  [*Bemerkung*],
+
+  [1],
+  [29,995 mm],
+  [OK],
+
+  [2],
+  [29,968 mm],
+  [Fehler (zu klein) → Teil ausscheiden],
+
+  [3],
+  [29,981 mm],
+  [OK],
+
+  [4],
+  [30,005 mm],
+  [Fehler (zu groß) → Nacharbeit],
 )
 
 #pagebreak()
 
 === Fehlerklassifizierung
 
-- *Nebenfehler:* Entsprechen geringen Abweichungen, welche die Funktionalität nur unwesentlich mindern.
+- *Nebenfehler:* Entsprechen geringen Abweichungen, welche die Funktionalität nur unwesentlich beeinträchtigen.
+
 - *Hauptfehler:* Sind nicht kritisch, können aber zu einem Ausfall führen.
+
 - *Kritische Fehler:* Können zu einer Gefahr für Personen werden.
 
 == Qualitätskosten
 
 === Fehlerkosten
 
-Entstehen durch hergestellte Produkte, die den Qualitätsmerkmalen nicht entsprechen. Kosten entstehen durch Ausschuss, Nacharbeit, etc.
+Entstehen durch hergestellte Produkte, die den Qualitätsmerkmalen nicht entsprechen. Kosten entstehen durch Ausschuss, Nacharbeit etc.
 
 === Fehlerverhütungskosten
 
-Kosten für vorbeugende Fehlervermeidung. Dazu gehören:
+Kosten für vorbeugende Fehlervermeidung.
+
+Dazu gehören:
+
 - Qualitätsplanung
 - Lieferantenbeurteilung
 - Prüfplanung
@@ -247,14 +324,15 @@ Kosten der Qualitätsprüfungen.
 
 *Qualitätskosten = Fehlerkosten + Prüfkosten + Fehlerverhütungskosten*
 
-#highlight("Größenanordnung der Qualitätskosten", [
-- Fehlerkosten: 78%
-- Prüfkosten: 15%
-- Fehlerverhütungskosten: 7%
+#hinweis("Größenanordnung der Qualitätskosten", [
+  - Fehlerkosten: 78%
+  - Prüfkosten: 15%
+  - Fehlerverhütungskosten: 7%
 ])
 
 #note("Wichtiger Hinweis", [
-Desto später Fehler entdeckt werden, desto mehr kostet es. Deshalb ist Qualitätsmanagement so wichtig!
+  Je später Fehler entdeckt werden, desto mehr kostet es.
+  Deshalb ist Qualitätsmanagement so wichtig!
 ])
 
 #pagebreak()
@@ -269,9 +347,11 @@ Desto später Fehler entdeckt werden, desto mehr kostet es. Deshalb ist Qualitä
 == Qualitätsplanung
 
 Zur Qualitätsplanung gehören:
+
 - Die konkrete Festlegung der Qualitätsmerkmale der Produkte, basierend auf den Kundenanforderungen
 - Die Festlegung von Toleranzbereichen für diese Merkmalswerte
-- Die Verbesserung von Prozessen bei der Leistungserstellung (z.B. Werkzeugauswahl, Ablaufpläne, Maschineneinstellungen, Transportvorschriften)
+- Die Verbesserung von Prozessen bei der Leistungserstellung
+  (z.B. Werkzeugauswahl, Ablaufpläne, Maschineneinstellungen, Transportvorschriften)
 - Lieferantenbeurteilung
 - Mitarbeiterschulung
 
@@ -281,29 +361,262 @@ Die Qualitätsprüfung beantwortet folgende Fragen:
 
 #table(
   columns: (20%, 80%),
-  [*Frage*], [*Erklärung*],
-  [Was?], [Welches Merkmal wird geprüft?],
-  [Wie viel?], [Welche Stückzahl?],
-  [Wie oft?], [Welche Häufigkeit?],
-  [Womit?], [Welches Prüfmittel?],
-  [Wie?], [Welche Prüfmethode?],
-  [Wann?], [Welcher Prüfzeitpunkt?],
-  [Durch wen?], [Wer prüft?],
-  [Wo?], [Welcher Prüfort?],
-  [Verarbeitung?], [Was passiert mit den Prüfdaten?],
+
+  [*Frage*],
+  [*Erklärung*],
+
+  [Was?],
+  [Welches Merkmal wird geprüft?],
+
+  [Wie viel?],
+  [Welche Stückzahl?],
+
+  [Wie oft?],
+  [Welche Häufigkeit?],
+
+  [Womit?],
+  [Welches Prüfmittel?],
+
+  [Wie?],
+  [Welche Prüfmethode?],
+
+  [Wann?],
+  [Welcher Prüfzeitpunkt?],
+
+  [Durch wen?],
+  [Wer prüft?],
+
+  [Wo?],
+  [Welcher Prüfort?],
+
+  [Verarbeitung?],
+  [Was passiert mit den Prüfdaten?],
 )
 
 #note("Archivierung der Prüfdaten", [
-Die gemessenen Prüfdaten werden archiviert und ermöglichen bei Bedarf die Rückverfolgung. Es ist nicht nur wichtig zu wissen, ob etwas fehlerhaft ist, sondern auch _was_ fehlerhaft ist.
+  Die gemessenen Prüfdaten werden archiviert und ermöglichen bei Bedarf
+  die Rückverfolgung. Es ist nicht nur wichtig zu wissen, ob etwas
+  fehlerhaft ist, sondern auch *was* fehlerhaft ist.
 ])
 
 == Qualitätslenkung
 
-*Qualitätslenkung* → Beherrschung der qualitätsrelevanten Prozesse. Dabei werden die Prozesse während der Produktion überwacht und gesteuert.
+*Qualitätslenkung* bedeutet die Beherrschung der qualitätsrelevanten Prozesse.
+
+Dabei werden die Prozesse während der Produktion überwacht und gesteuert.
 
 == Qualitätsverbesserung
 
 Kontinuierliche Optimierung und Verbesserung der Qualitätsprozesse basierend auf Prüfergebnissen und Feedback.
+
+=== PDCA-Zyklus
+
+Der PDCA-Zyklus beschreibt einen kontinuierlichen Verbesserungsprozess.
+
+#table(
+  columns: (20%, 80%),
+
+  [*Schritt*],
+  [*Funktion*],
+
+  [Plan],
+  [Verbesserung planen, Problem analysieren und Ziele festlegen],
+
+  [Do],
+  [Geplante Maßnahmen umsetzen],
+
+  [Check],
+  [Ergebnis überprüfen und feststellen, ob die Maßnahme wirksam war],
+
+  [Act],
+  [Erfolgreiche Verbesserung dauerhaft einführen bzw. bei Problemen erneut planen],
+)
+
+#hinweis("PDCA-Merksatz", [
+  *Plan → Do → Check → Act*
+])
+
+#pagebreak()
+
+== Werkzeuge des QM
+
+=== Problemlösungsprozess
+
+Es müssen standardisierte Problemlösungsprozesse eingeführt werden.
+
+#table(
+  columns: (38%, 62%),
+
+  [*Schritt*],
+  [*Funktion*],
+
+  [Problem verstehen und beschreiben],
+  [Problem erkennen und beschreiben. Ziel: Problem verstehen und lösen.],
+
+  [Analyse],
+  [Problem wird nach seinen Ursachen und Auslösern untersucht.],
+
+  [Realisierung & Bewertung der Lösung],
+  [Lösung wird umgesetzt und auf ihre Wirksamkeit untersucht. Bei einem Fehler wird mit der neuerlichen Problembeschreibung begonnen.],
+
+  [Einführung],
+  [Die Lösung wird dauerhaft in den Prozess integriert.],
+)
+
+=== Qualitätswerkzeuge der Datenerfassung und Datenanalyse
+
+=== Brainstorming
+
+Dient dazu, möglichst viele Ideen und mögliche Ursachen für ein Problem zu sammeln.
+
+=== Flussdiagramm
+
+Stellt einen Prozess grafisch dar und zeigt die einzelnen Schritte und deren Reihenfolge.
+
+→ Dient dazu, Abläufe übersichtlich darzustellen und mögliche Fehlerstellen zu erkennen.
+
+=== Baumdiagramm
+
+Zerlegt ein Problem oder Ziel schrittweise in einzelne Teilbereiche.
+
+→ Dient dazu, komplexe Probleme systematisch zu strukturieren.
+
+=== Strichliste / Fehlersammelliste
+
+Die Häufigkeit des Auftretens eines Fehlers wird strukturiert erfasst.
+
+Der Fehler muss dafür bereits bekannt sein.
+
+#table(
+  columns: (50%, 50%),
+
+  [*Fehler*],
+  [*Häufigkeit*],
+
+  [a],
+  [III],
+
+  [b],
+  [II],
+
+  [c],
+  [IIII],
+
+  [d],
+  [I],
+)
+
+=== Ishikawa-Diagramm
+
+Das Ishikawa-Diagramm wird auch *Ursachen-Wirkungs-Diagramm* genannt.
+
+Es dient dazu, mögliche Ursachen eines Problems systematisch zu untersuchen.
+
+Typische Bereiche:
+
+- Mensch
+- Maschine
+- Material
+- Methode
+
+#infobox("Beispiel: Kopierer", [
+  *Mensch:*
+  - schmutzige Hände
+  - falsche Maschinenbedienung
+
+  *Maschine:*
+  - Walzenzustand
+  - Helligkeit der Lampe
+  - Tisch schmutzig
+
+  *Material:*
+  - falscher Toner
+  - Papierqualität
+  - schlechte Flüssigkeit
+
+  *Methode:*
+  - Positionieren des Originals
+  - zu wenig Toner
+  - Deutlichkeit des Originals
+  - Maschinenüberlastung
+])
+
+=== Verlaufsdiagramm
+
+Zeigt die Entwicklung eines Qualitätsmerkmals oder einer Messgröße über einen bestimmten Zeitraum.
+
+→ Dient dazu, Veränderungen und Trends zu erkennen.
+
+=== Korrelationsdiagramm
+
+Zeigt den Zusammenhang zwischen zwei Merkmalen bzw. Messgrößen.
+
+→ Dient dazu, festzustellen, ob zwischen zwei Größen ein Zusammenhang besteht.
+
+=== Pareto-Diagramm
+
+Stellt Fehler oder Ursachen nach ihrer Häufigkeit bzw. Bedeutung geordnet dar.
+
+→ Dient dazu, die wichtigsten Fehlerursachen zu erkennen und Prioritäten zu setzen.
+
+=== Histogramm
+
+Stellt die Häufigkeitsverteilung von Messwerten grafisch dar.
+
+→ Dient dazu, die Verteilung und Streuung eines Qualitätsmerkmals zu erkennen.
+
+=== Matrixdiagramm
+
+Stellt Beziehungen zwischen mehreren Merkmalen, Faktoren oder Gruppen übersichtlich dar.
+
+→ Dient dazu, Zusammenhänge und Abhängigkeiten zwischen verschiedenen Faktoren zu erkennen.
+
+#pagebreak()
+
+== Übersicht der Qualitätswerkzeuge
+
+#table(
+  columns: (35%, 65%),
+
+  [*Werkzeug*],
+  [*Funktion*],
+
+  [Brainstorming],
+  [Ideen und mögliche Ursachen sammeln],
+
+  [Flussdiagramm],
+  [Prozesse und Abläufe darstellen],
+
+  [Baumdiagramm],
+  [Probleme oder Ziele in Teilbereiche zerlegen],
+
+  [Strichliste / Fehlersammelliste],
+  [Häufigkeit bekannter Fehler erfassen],
+
+  [Ishikawa-Diagramm],
+  [Mögliche Ursachen eines Problems untersuchen],
+
+  [Verlaufsdiagramm],
+  [Entwicklung eines Merkmals über die Zeit darstellen],
+
+  [Korrelationsdiagramm],
+  [Zusammenhang zwischen zwei Merkmalen untersuchen],
+
+  [Pareto-Diagramm],
+  [Häufigste bzw. wichtigste Fehler erkennen],
+
+  [Histogramm],
+  [Häufigkeitsverteilung und Streuung darstellen],
+
+  [Matrixdiagramm],
+  [Beziehungen zwischen verschiedenen Faktoren darstellen],
+)
+
+#note("Merksatz", [
+  Qualitätsmanagement bedeutet nicht nur Fehler zu finden,
+  sondern Fehler möglichst früh zu verhindern und Prozesse
+  kontinuierlich zu verbessern.
+])
 
 ])
 
